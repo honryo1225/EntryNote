@@ -80,7 +80,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_16_114840) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
-    t.string "image"
   end
 
   create_table "users", force: :cascade do |t|

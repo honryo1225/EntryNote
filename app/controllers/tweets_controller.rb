@@ -5,24 +5,22 @@ class TweetsController < ApplicationController
 def index
     @tweet= Tweet.all
     @tags = Tag.all
-    @rank_tweets = Tweet.all.sort {|a,b| b.liked_users.count <=> a.liked_users.count}
-
+    @rank_tweets = Tweet.all.sort {|a,b| b.liked_users.count <=> a.liked_users.count}.take(5)
 
     @tweet = @tweet.where("kigyoumei LIKE ? ",'%' + params[:search] + '%') if params[:search].present?
-  if params[:tag_ids].present?
-    post_ids = []
-    params[:tag_ids].each do |key, value| 
-      if value == "1"
-        Tag.find_by(name: key).tweets.each do |p| 
-          post_ids << p.id
-      end
-  end 
-  
-end
-    post_ids = post_ids.uniq
     
-    @tweet = @tweet.where(id: post_ids) if post_ids.present?
-   end
+    if params[:tag_ids].present?
+      tweet_ids = []
+      params[:tag_ids].each do |key, value| 
+        if value == "1"
+          Tag.find_by(name: key).tweets.each do |p| 
+            tweet_ids << p.id
+          end
+        end 
+      end
+    tweet_ids = tweet_ids.uniq
+    @tweet = @tweet.where(id: tweet_ids) if tweet_ids.present?
+    end
   end
 
   def new

@@ -1,0 +1,29 @@
+<%= form_for @tweet do |f| %>
+   <div class = "field" >
+  <%= f.label :企業名 %>
+  <%= f.text_field :kigyoumei, :size => 140 %> 
+  </div>
+
+  <div class = "field" >
+    <%= f.label :締切日 %>
+    <%= f.datetime_field :start_time, { discard: true} %>
+    </div>
+
+  <div class = "field" >
+    <%= f.label :マイページURL %>
+    <%= f.text_field :mypage_url, :size => 140 %>
+  </div>
+
+<div class="field">
+    <%= f.label :tags, "あてはまるタグ" %><br>
+    <% Tag.all.each do |t| %>
+        <label>
+        <%= check_box_tag "tweet[tag_ids][]", t.id, @tweet.tags.include?(t) %>
+        <%= t.name %>
+        </label>
+    <% end %>
+
+
+  <%= f.submit "編集する" %>  
+  <%= link_to "一覧に戻る", tweets_path %>
+<% end %>

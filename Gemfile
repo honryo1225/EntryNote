@@ -66,7 +66,7 @@ group :test do
 end
 
 gem 'devise'
-gem 'simple_calendar', '~> 2.0'
+gem 'simple_calendar', '~> 3.1'
 gem 'sassc', '~> 2.4'
 gem 'cloudinary'
 gem 'activestorage-cloudinary-service'
